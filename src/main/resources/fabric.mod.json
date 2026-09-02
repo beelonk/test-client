@@ -9,13 +9,13 @@
 	],
 	"contact": {
 		"homepage": "",
-		"sources": "https://github.com/FabricMC/fabric-example-mod"
+		"sources": "https://github.com/beelonk/test-client"
 	},
 	"license": "CC0-1.0",
 	"icon": "assets/testclient/icon.png",
-	"environment": "*",
+	"environment": "client",
 	"entrypoints": {
-		"main": [
+		"client": [
           "com.test.Client"
 		]
 	},

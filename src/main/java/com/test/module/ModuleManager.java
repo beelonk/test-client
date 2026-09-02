@@ -1,6 +1,7 @@
 package com.test.module;
 
 import com.test.module.movement.*;
+import com.test.module.render.InfoHud;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -15,7 +16,7 @@ public class ModuleManager {
     }
 
     public List<Mod> getModules() {
-        return modules;
+        return List.copyOf(modules);
     }
 
     public List<Mod> getEnabledModules(){
@@ -29,6 +30,7 @@ public class ModuleManager {
     private void addModules() {
         modules.add(new Flight());
         modules.add(new Sprint());
+        modules.add(new InfoHud());
     }
 
 

@@ -21,9 +21,7 @@ public class Mod {
     }
 
     public void toggle(){
-        this.enabled = !this.enabled;
-        if(enabled) onEnable();
-        else onDisable();
+        setEnabled(!enabled);
     }
 
     public String getDisplayName() {
@@ -79,6 +77,7 @@ public class Mod {
     }
 
     public void setEnabled(boolean enabled) {
+        if (this.enabled == enabled) return;
         this.enabled = enabled;
 
         if(enabled) onEnable();

@@ -2,9 +2,7 @@
 	"required": true,
 	"package": "com.test.mixin",
 	"compatibilityLevel": "JAVA_21",
-	"mixins": [
-      "MinecraftClientMixin",
-		"KeyboardMixin",
+	"client": [
 		"InGameHudMixin"
 	],
 	"injectors": {

@@ -12,7 +12,7 @@ import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 @Mixin(InGameHud.class)
 public class InGameHudMixin {
 
-    @Inject(method = "render", at = @At("RETURN"), cancellable = true)
+    @Inject(method = "render", at = @At("RETURN"))
     public void renderHud(DrawContext context, RenderTickCounter renderTickCounter, CallbackInfo ci){
         Hud.render(context, renderTickCounter);
     }

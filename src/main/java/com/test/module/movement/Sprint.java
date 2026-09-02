@@ -12,7 +12,13 @@ public class Sprint extends Mod {
 
     @Override
     public void onTick() {
-        mc.player.setSprinting(true);
+        if (mc.player == null || mc.currentScreen != null) return;
+        if (mc.player.input.movementForward > 0 && !mc.player.isSneaking()
+                && !mc.player.horizontalCollision && !mc.player.isUsingItem()
+                && (mc.player.getHungerManager().getFoodLevel() > 6
+                    || mc.player.getAbilities().allowFlying)) {
+            mc.player.setSprinting(true);
+        }
         super.onTick();
     }
 }

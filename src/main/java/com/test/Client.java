@@ -2,46 +2,50 @@ package com.test;
 
 import com.test.module.Mod;
 import com.test.module.ModuleManager;
-import net.fabricmc.api.ModInitializer;
-
-import net.minecraft.client.MinecraftClient;
+import com.test.ui.ModuleScreen;
+import net.fabricmc.api.ClientModInitializer;
+import net.fabricmc.fabric.api.client.event.lifecycle.v1.ClientTickEvents;
+import net.fabricmc.fabric.api.client.keybinding.v1.KeyBindingHelper;
+import net.minecraft.client.option.KeyBinding;
+import net.minecraft.client.util.InputUtil;
 import org.lwjgl.glfw.GLFW;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 
-public class Client implements ModInitializer {
-	// This logger is used to write text to the console and the log file.
-	// It is considered best practice to use your mod id as the logger's name.
-	// That way, it's clear which mod wrote info, warnings, and errors.
-    public static final Logger logger = LoggerFactory.getLogger("testclient");
-	public static final Client INSTANCE = new Client();
+import java.util.LinkedHashMap;
+import java.util.Locale;
+import java.util.Map;
 
-	private MinecraftClient mc = MinecraftClient.getInstance();
+public class Client implements ClientModInitializer {
 
-	@Override
-	public void onInitialize() {
-		// This code runs as soon as Minecraft is in a mod-load-ready state.
-		// However, some things (like resources) may still be uninitialized.
-		// Proceed with mild caution.
+    @Override
+    public void onInitializeClient() {
+        KeyBinding menu = register("menu", GLFW.GLFW_KEY_RIGHT_SHIFT);
+        Map<Mod, KeyBinding> bindings = new LinkedHashMap<>();
+        for (Mod module : ModuleManager.INSTANCE.getModules()) {
+            bindings.put(module, register(module.getName().toLowerCase(Locale.ROOT), module.getKey()));
+        }
+        ClientTickEvents.END_CLIENT_TICK.register(client -> {
+            boolean inGame = client.player != null && client.world != null;
+            while (menu.wasPressed()) {
+                if (inGame && client.currentScreen == null) client.setScreen(new ModuleScreen());
+            }
+            bindings.forEach((module, binding) -> {
+                // Drain all queued input even while a screen is open.
+                while (binding.wasPressed()) {
+                    if (inGame && client.currentScreen == null) module.toggle();
+                }
+            });
+            if (!inGame) {
+                for (Mod module : ModuleManager.INSTANCE.getEnabledModules()) {
+                    if (module.getCategory() == Mod.Category.MOVEMENT) module.setEnabled(false);
+                }
+            } else if (!client.isPaused()) {
+                for (Mod module : ModuleManager.INSTANCE.getEnabledModules()) module.onTick();
+            }
+        });
+    }
 
-		logger.info("Hello Fabric world!");
-	}
-
-	public void onKeyPress(int key, int action){
-		if (action == GLFW.GLFW_PRESS) logger.info("Key " + key + " was pressed");
-		if (action == GLFW.GLFW_PRESS) {
-			for (Mod module : ModuleManager.INSTANCE.getModules()) {
-				if (key == module.getKey()) module.toggle();
-			}
-		}
-	}
-
-	public void onTick(){
-		if (mc.player != null) {
-			for (Mod module :
-					ModuleManager.INSTANCE.getEnabledModules()) {
-				module.onTick();
-			}
-		}
-	}
+    private KeyBinding register(String name, int key) {
+        return KeyBindingHelper.registerKeyBinding(new KeyBinding(
+                "key.testclient." + name, InputUtil.Type.KEYSYM, key, "category.testclient"));
+    }
 }

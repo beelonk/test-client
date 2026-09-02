@@ -1,0 +1,7 @@
+{
+  "category.testclient": "Test Client",
+  "key.testclient.menu": "Open module menu",
+  "key.testclient.flight": "Toggle Flight",
+  "key.testclient.sprint": "Toggle Sprint",
+  "key.testclient.infohud": "Toggle Info HUD"
+}
