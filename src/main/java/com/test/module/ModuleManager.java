@@ -2,6 +2,7 @@ package com.test.module;
 
 import com.test.module.movement.*;
 import com.test.module.render.InfoHud;
+import com.test.module.render.ChestEsp;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -31,6 +32,7 @@ public class ModuleManager {
         modules.add(new Flight());
         modules.add(new Sprint());
         modules.add(new InfoHud());
+        modules.add(new ChestEsp());
     }
 
 

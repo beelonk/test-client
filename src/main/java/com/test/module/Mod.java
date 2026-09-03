@@ -1,6 +1,6 @@
 package com.test.module;
 
-import net.minecraft.client.MinecraftClient;
+import net.minecraft.client.Minecraft;
 
 public class Mod {
 
@@ -11,7 +11,7 @@ public class Mod {
     private int key;
     private boolean enabled;
 
-    protected MinecraftClient mc = MinecraftClient.getInstance();
+    protected final Minecraft mc = Minecraft.getInstance();
 
     public Mod(String name, String description, Category category){
         this.name = name;
@@ -42,6 +42,10 @@ public class Mod {
 
     public void onDisable() {
 
+    }
+
+    /** Release references to a world without changing a render module's toggle. */
+    public void onWorldLeave() {
     }
 
     public Category getCategory() {

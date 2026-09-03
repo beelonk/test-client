@@ -2,10 +2,10 @@ package com.test.module.movement;
 
 import com.test.module.Mod;
 import org.lwjgl.glfw.GLFW;
-import net.minecraft.client.network.ClientPlayerEntity;
+import net.minecraft.client.player.LocalPlayer;
 
 public class Flight extends Mod {
-    private ClientPlayerEntity affectedPlayer;
+    private LocalPlayer affectedPlayer;
     private boolean originalAllowFlying;
     private boolean originalFlying;
 
@@ -21,11 +21,11 @@ public class Flight extends Mod {
         if (affectedPlayer != mc.player) {
             restore();
             affectedPlayer = mc.player;
-            originalAllowFlying = mc.player.getAbilities().allowFlying
+            originalAllowFlying = mc.player.getAbilities().mayfly
                     && !mc.player.isCreative() && !mc.player.isSpectator();
             originalFlying = mc.player.getAbilities().flying;
         }
-        mc.player.getAbilities().allowFlying = true;
+        mc.player.getAbilities().mayfly = true;
         super.onTick();
     }
 
@@ -39,7 +39,7 @@ public class Flight extends Mod {
         if (affectedPlayer != null) {
             // Creative/spectator abilities belong to the game, not this module.
             if (!affectedPlayer.isCreative() && !affectedPlayer.isSpectator()) {
-                affectedPlayer.getAbilities().allowFlying = originalAllowFlying;
+                affectedPlayer.getAbilities().mayfly = originalAllowFlying;
                 affectedPlayer.getAbilities().flying = originalAllowFlying && originalFlying;
             }
             affectedPlayer = null;
