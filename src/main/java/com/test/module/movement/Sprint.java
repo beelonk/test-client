@@ -1,13 +1,13 @@
 package com.test.module.movement;
 
 import com.test.module.Mod;
-import org.lwjgl.glfw.GLFW;
+import com.mojang.blaze3d.platform.InputConstants;
 
 public class Sprint extends Mod {
 
     public Sprint(){
         super("Sprint", "Keeps your sprint", Category.MOVEMENT);
-        this.setKey(GLFW.GLFW_KEY_V);
+        this.setKey(InputConstants.KEY_V);
     }
 
     @Override

@@ -7,7 +7,7 @@ import net.minecraft.world.level.block.entity.ChestBlockEntity;
 import net.minecraft.world.level.block.entity.EnderChestBlockEntity;
 import net.minecraft.world.level.chunk.LevelChunk;
 import net.minecraft.world.level.chunk.status.ChunkStatus;
-import org.lwjgl.glfw.GLFW;
+import com.mojang.blaze3d.platform.InputConstants;
 
 import java.util.ArrayList;
 import java.util.Comparator;
@@ -24,7 +24,7 @@ public class ChestEsp extends Mod {
     public ChestEsp() {
         super("ChestEsp", "Show loaded chests through walls within 64 blocks (gold/red/purple)", Category.RENDER);
         setDisplayName("Chest ESP");
-        setKey(GLFW.GLFW_KEY_C);
+        setKey(InputConstants.KEY_C);
     }
 
     @Override

@@ -1,7 +1,7 @@
 package com.test.module.movement;
 
 import com.test.module.Mod;
-import org.lwjgl.glfw.GLFW;
+import com.mojang.blaze3d.platform.InputConstants;
 import net.minecraft.client.player.LocalPlayer;
 
 public class Flight extends Mod {
@@ -12,7 +12,7 @@ public class Flight extends Mod {
     public Flight()
     {
         super("Flight", "allows you to fly", Category.MOVEMENT);
-        this.setKey(GLFW.GLFW_KEY_G);
+        this.setKey(InputConstants.KEY_G);
     }
 
     @Override

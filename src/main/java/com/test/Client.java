@@ -13,7 +13,6 @@ import net.fabricmc.fabric.api.client.rendering.v1.hud.VanillaHudElements;
 import net.minecraft.client.KeyMapping;
 import com.mojang.blaze3d.platform.InputConstants;
 import net.minecraft.resources.Identifier;
-import org.lwjgl.glfw.GLFW;
 
 import java.util.LinkedHashMap;
 import java.util.Locale;
@@ -25,7 +24,7 @@ public class Client implements ClientModInitializer {
 
     @Override
     public void onInitializeClient() {
-        KeyMapping menu = register("menu", GLFW.GLFW_KEY_RIGHT_SHIFT);
+        KeyMapping menu = register("menu", InputConstants.KEY_RSHIFT);
         Map<Mod, KeyMapping> bindings = new LinkedHashMap<>();
         for (Mod module : ModuleManager.INSTANCE.getModules()) {
             bindings.put(module, register(module.getName().toLowerCase(Locale.ROOT), module.getKey()));
@@ -57,6 +56,6 @@ public class Client implements ClientModInitializer {
 
     private KeyMapping register(String name, int key) {
         return KeyMappingHelper.registerKeyMapping(new KeyMapping(
-                "key.testclient." + name, InputConstants.Type.KEYSYM, key, KEY_CATEGORY));
+                "key.testclient." + name, InputConstants.Type.KEYBOARD, key, KEY_CATEGORY));
     }
 }

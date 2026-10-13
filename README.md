@@ -1,9 +1,9 @@
 # Test Client
 
-Client-side Fabric mod for **Minecraft Java 26.2**, using **Java 25**,
-**Fabric Loader 0.19.3+**, and **Fabric API 0.159.0+26.2**.
+Client-side Fabric mod for **Minecraft Java 26.3**, using **Java 25**,
+**Fabric Loader 0.19.5+**, and **Fabric API 0.162.0+26.3**.
 Fabric components have their own version numbers; choose the API build marked
-`+26.2`. This jar is not compatible with Minecraft 1.21 or 26.1.
+`+26.3`. This jar is not compatible with Minecraft 1.21, 26.1, or 26.2.
 
 ## Features and controls
 
@@ -42,15 +42,15 @@ survival players and preserves creative/spectator flight.
 
 ## Installation
 
-1. Install Fabric Loader for Minecraft 26.2 and use Java 25.
-2. Replace the old Test Client jar with `testclient-1.1.0+26.2.jar`, and place
-   Fabric API `0.159.0+26.2` alongside it
-   your Minecraft `mods` folder. Do not install the `-sources.jar`.
+1. Install Fabric Loader for Minecraft 26.3 and use Java 25.
+2. Replace the old Test Client jar with `testclient-1.2.0+26.3.jar`, and place
+   Fabric API `0.162.0+26.3` alongside it in your Minecraft `mods` folder. Do
+   not install the `-sources.jar`.
 3. Launch the Fabric profile, enter a world, and press Right Shift.
 
 ## Development
 
-Set `JAVA_HOME` to a Java 25 JDK, then build with the included Gradle 9.5.1 wrapper:
+Set `JAVA_HOME` to a Java 25 JDK, then build with the included Gradle 9.7.1 wrapper:
 
 ```powershell
 git clone https://github.com/beelonk/test-client.git
@@ -59,7 +59,7 @@ cd test-client
 ```
 
 On Linux/macOS use `./gradlew build`. The installable jar is written to
-`build/libs/testclient-1.1.0+26.2.jar`. Launch a development client using
+`build/libs/testclient-1.2.0+26.3.jar`. Launch a development client using
 `gradlew.bat runClient` (or `./gradlew runClient`).
 
 ### Automated client smoke test

@@ -7,7 +7,7 @@ import com.test.ui.ModuleScreen;
 import net.fabricmc.fabric.api.client.gametest.v1.FabricClientGameTest;
 import net.fabricmc.fabric.api.client.gametest.v1.context.ClientGameTestContext;
 import net.minecraft.core.BlockPos;
-import org.lwjgl.glfw.GLFW;
+import com.mojang.blaze3d.platform.InputConstants;
 
 /** Runs only in the separate test mod, never in the shipped client. */
 public class ChestEspGameTest implements FabricClientGameTest {
@@ -26,23 +26,23 @@ public class ChestEspGameTest implements FabricClientGameTest {
             server.runCommand("fill -4 100 4 4 104 4 stone");
             world.getConnection().waitForChunksRender();
             context.getInput().lookAt(new BlockPos(0, 101, 6));
-            context.getInput().pressKey(GLFW.GLFW_KEY_C);
+            context.getInput().pressKey(InputConstants.KEY_C);
             context.waitFor(mc -> chestEsp().positions(mc.level).size() == 3);
             context.waitTicks(20);
             context.takeScreenshot("chest-esp-through-wall");
 
-            context.getInput().pressKey(GLFW.GLFW_KEY_H);
+            context.getInput().pressKey(InputConstants.KEY_H);
             context.waitTicks(5);
             context.takeScreenshot("info-hud-26-2");
-            context.getInput().pressKey(GLFW.GLFW_KEY_F1);
+            context.getInput().pressKey(InputConstants.KEY_F1);
             context.waitTicks(5);
             context.takeScreenshot("hidden-hud-and-esp");
-            context.getInput().pressKey(GLFW.GLFW_KEY_F1);
+            context.getInput().pressKey(InputConstants.KEY_F1);
 
-            context.getInput().pressKey(GLFW.GLFW_KEY_T);
+            context.getInput().pressKey(InputConstants.KEY_T);
             context.waitTicks(3);
             context.getInput().typeChars("cghv");
-            context.getInput().pressKey(GLFW.GLFW_KEY_ESCAPE);
+            context.getInput().pressKey(InputConstants.KEY_ESCAPE);
             context.waitTicks(3);
             context.runOnClient(mc -> {
                 if (!chestEsp().isEnabled() || ModuleManager.INSTANCE.getEnabledModules().size() != 2) {
@@ -51,7 +51,7 @@ public class ChestEspGameTest implements FabricClientGameTest {
             });
 
             // Opening the actual menu also exercises its migrated 26.2 widgets.
-            context.getInput().pressKey(GLFW.GLFW_KEY_RIGHT_SHIFT);
+            context.getInput().pressKey(InputConstants.KEY_RSHIFT);
             context.waitForScreen(ModuleScreen.class);
             context.takeScreenshot("module-menu-26-2");
             context.clickScreenButton("Disable all");
@@ -67,7 +67,7 @@ public class ChestEspGameTest implements FabricClientGameTest {
             context.waitTicks(5);
             context.takeScreenshot("chest-esp-disabled");
 
-            context.getInput().pressKey(GLFW.GLFW_KEY_C);
+            context.getInput().pressKey(InputConstants.KEY_C);
             context.waitFor(mc -> chestEsp().positions(mc.level).size() == 3);
             server.runCommand("setblock -2 100 6 air");
             context.waitFor(mc -> chestEsp().positions(mc.level).size() == 2);
